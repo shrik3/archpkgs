@@ -1,0 +1,3 @@
+NEVER manually modify anything in the packages in this repo.
+
+Do it in their own repos and run the syncpkg.sh

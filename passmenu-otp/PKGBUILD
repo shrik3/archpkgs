@@ -1,0 +1,14 @@
+pkgname=passmenu-otp
+pkgver='0.0.1'
+pkgrel=1
+pkgdesc='passmenu with duct taped otp support'
+license=('MIT')
+depends=(pass pass-otp)
+arch=('x86_64' 'arm')
+source=('passmenu-otp')
+md5sums=('SKIP')
+
+package(){
+    mkdir -p "${pkgdir}/usr/local/bin"
+    install -Dm755 passmenu-otp "${pkgdir}/usr/local/bin/passmenu-otp"
+}

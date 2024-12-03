@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# upstream:
+# https://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu
+# originally: https://github.com/cdown/passmenu by cdown
+#
+# this is a slightly modified passmenu w/ otp helper
+# for simplicity, all "passwords" stored under `.password-store/otp/` will be
+# treated as otp setups and `pass otp` will be invoked. A more versatile setup
+# would be reading the content and identify the `otpauth` protocol, but this is
+# too much additional security risk to deal with.
+
+shopt -s nullglob globstar
+
+typeit=0
+if [[ $1 == "--type" ]]; then
+	typeit=1
+	shift
+fi
+
+if [[ -n $WAYLAND_DISPLAY ]]; then
+	dmenu=dmenu
+	xdotool="ydotool type --file -"
+elif [[ -n $DISPLAY ]]; then
+	dmenu=dmenu
+	xdotool="xdotool type --clearmodifiers --file -"
+else
+	echo "Error: No Wayland or X11 display detected" >&2
+	exit 1
+fi
+
+prefix=${PASSWORD_STORE_DIR-~/.password-store}
+password_files=( "$prefix"/**/*.gpg )
+password_files=( "${password_files[@]#"$prefix"/}" )
+password_files=( "${password_files[@]%.gpg}" )
+
+password=$(printf '%s\n' "${password_files[@]}" | "$dmenu" "$@")
+
+[[ -n $password ]] || exit
+
+if [[ $password = otp/* ]]; then
+    otp=1
+else
+    otp=0
+fi
+
+if [[ $typeit -eq 0 ]]; then
+    if [[ $otp -eq 0 ]]; then
+	    pass show -c "$password" 2>/dev/null
+    else
+	    pass otp -c "$password" 2>/dev/null
+    fi
+else
+    if [[ $otp -eq 0 ]]; then
+	    pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } | $xdotool
+    else
+	    pass otp "$password" | { IFS= read -r pass; printf %s "$pass"; } | $xdotool
+    fi
+fi

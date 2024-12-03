@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+# SPDX-License-Identifier: EUPL-1.2
+# Copyright (c) 2024 Tianhao Wang <shrik3@mailbox.org>
+
 BASEDIR=/home/shrik3/a/proj/my_pkgs
 LOCK='pkgs_lock.json'
 

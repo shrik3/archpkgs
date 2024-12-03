@@ -1,0 +1,14 @@
+pkgname=rfc-reader
+pkgver='0.0.1'
+pkgrel=1
+pkgdesc='simple script to view rfc documents'
+license=('MIT')
+depends=(rfc)
+arch=('x86_64' 'arm')
+source=('rfc.sh')
+md5sums=('SKIP')
+
+package(){
+    mkdir -p "${pkgdir}/usr/local/bin"
+    install -Dm755 rfc.sh "${pkgdir}/usr/local/bin/rfc"
+}

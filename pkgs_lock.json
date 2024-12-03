@@ -1,5 +1,6 @@
 {
   "aspectc++-nightly-bin": "fb2fdafd537a6cdaa1f9f6a5608d7833a1aa5aee",
   "kazv-git": "f38ab4aab1ad8c6357290912901990015b30cd73",
-  "libkazv-git": "066822804b30ca8bf54ae36dfd3e7ccbed3f8e7c"
+  "libkazv-git": "066822804b30ca8bf54ae36dfd3e7ccbed3f8e7c",
+  "vodozemac-bindings-cpp-kazv": "bf0ef380ac89d65a302d746a4e95735005cba6f7"
 }

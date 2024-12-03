@@ -1,3 +1,36 @@
-NEVER manually modify anything in the packages in this repo.
-
+NEVER manually modify anything in the package dirs in this repo.
 Do it in their own repos and run the syncpkg.sh
+
+# create your own "AUR instance"
+
+aur helper `paru` added supports for a custom repo
+
+https://github.com/Morganamilo/paru/issues/719
+
+for this to work, I need to have a repository that has all of my PKGBUILDs. The
+problem is: they are already VCS controlled
+
+what the syncpkgs.sh script does is to convert this
+
+my_pkgs/
+    |- pkg1/
+    |   |- PKGBUILD
+    |   |- .git
+    |- pkg2/
+    |   |- PKGBUILD
+    |   |- .git
+    |- pkg3/
+        |- PKGBUILD
+        |- .git
+
+to this:
+
+webhost/
+    |- pkg1/
+    |   |- PKGBUILD
+    |- pkg2/
+    |   |- PKGBUILD
+    |- pkg3/
+    |   |- PKGBUILD
+    |-.git
+
